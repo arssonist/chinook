@@ -12,7 +12,15 @@ Genre.where('name = ?', "Hip Hop/Rap")
 
 SELECT * from genres; - to get genre_id
 then
+
 Track.where('genre_id = ?', 17).count
+
+Proper way, from answers-
+genre = Genre.find_by(name: "Hip Hop/Rap")
+Track.where(genre: genre)
+
+genre = Genre.find_by(name: "Hip Hop/Rap")
+genre.tracks
 
 # 2) Find the total amount of time required to listen to all the tracks in the database.
 
@@ -24,14 +32,18 @@ Track.sum(:milliseconds)
 
 SELECT * FROM media_types; --> get media_types ID number 1
 
+# MediaType.find_by(name:"MPEG audio file")
+
+Track.where(media_type_id: MediaType.find_by(name:"MPEG audio file").id).order("unit_price desc").limit(1)
+
 random blocks used of testing
 # Genre.find_each do |a|
 #   puts a.name
 # end
 #
-# MediaType.find do |a|
-#   puts (a.id) && (a.name)
-# end
+MediaType.find do |a|
+  puts (a.id) && (a.name)
+end
 
 
 Track. where("unit_price = ? AND media_type_id = ?", 0.99, 1).count
